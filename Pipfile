@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+bonobo = "~=0.6"
+pyyaml = "~=3.13"
+termcolor = "~=1.1"
+textblob = "~=0.15"
+tweepy = "~=3.7"
+
+[requires]
+python_version = "3.6"
