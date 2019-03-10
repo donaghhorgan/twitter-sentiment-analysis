@@ -1,4 +1,4 @@
-class RetweetFilter:
+class RetweetFilterNode:
 
     def __call__(self, data):
         tweet = data['status']

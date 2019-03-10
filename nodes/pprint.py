@@ -10,7 +10,7 @@ def get_colour(sentiment):
         return 'grey'
 
 
-class PrettyPrinter:
+class PrettyPrinterNode:
 
     def __call__(self, data):
         colour = get_colour(data['sentiment'])

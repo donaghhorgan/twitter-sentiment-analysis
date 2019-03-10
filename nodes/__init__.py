@@ -1,11 +1,11 @@
-from .filter import RetweetFilter
-from .pprint import PrettyPrinter
+from .filter import RetweetFilterNode
+from .pprint import PrettyPrinterNode
 from .tb import TextBlobNode
 from .twitter import TwitterNode
 
 _NODES = {
-    'filter': RetweetFilter,
-    'pprint': PrettyPrinter,
+    'filter': RetweetFilterNode,
+    'pprint': PrettyPrinterNode,
     'textblob': TextBlobNode,
     'twitter': TwitterNode
 }
