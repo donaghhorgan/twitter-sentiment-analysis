@@ -65,5 +65,6 @@ class TwitterNode():
 
             yield {
                 'status': status,
-                'text': text
+                'text': text,
+                'time': status.created_at
             }

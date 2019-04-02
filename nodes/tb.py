@@ -1,4 +1,8 @@
+import nltk
 import textblob
+
+nltk.download('movie_reviews')
+nltk.download('punkt')
 
 ANALYZERS = {
     'NaiveBayesAnalyzer': textblob.sentiments.NaiveBayesAnalyzer(),

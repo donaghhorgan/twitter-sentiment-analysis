@@ -7,7 +7,13 @@ verify_ssl = true
 
 [packages]
 bonobo = "~=0.6"
+matplotlib = "~=3.0"
+pandas = "~=0.24"
+pycairo = "~=1.18"
+PyQt5 = "~=5.12"
 pyyaml = "~=3.13"
+scipy = "~=1.2"
+seaborn = "~=0.9"
 termcolor = "~=1.1"
 textblob = "~=0.15"
 tweepy = "~=3.7"

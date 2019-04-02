@@ -13,6 +13,8 @@ graph:
     config:
       analyzer: PatternAnalyzer
     _input: filter
+  chart:
+    _input: textblob
   pprint:
     _input: textblob
 logging:
