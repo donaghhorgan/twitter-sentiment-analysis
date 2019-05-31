@@ -5,6 +5,7 @@ import bonobo
 import yaml
 
 import nodes
+import util
 
 if __name__ == '__main__':
     # Parse command line arguments
@@ -13,6 +14,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Load the app configuration
+    yaml.add_implicit_resolver('!env', util.env_var_resolver, Loader=yaml.SafeLoader)
+    yaml.add_constructor('!env', util.env_var_constructor, Loader=yaml.SafeLoader)
     with open(args.config_file) as f:
         config = yaml.safe_load(f)
 
