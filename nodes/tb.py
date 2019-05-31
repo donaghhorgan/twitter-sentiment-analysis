@@ -10,7 +10,7 @@ ANALYZERS = {
 }
 
 
-class TextBlobNode:
+class TextBlobAnalyzer:
 
     def __init__(self, **tb_opts):
         self.tb_opts = tb_opts

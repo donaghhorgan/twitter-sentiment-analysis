@@ -3,6 +3,7 @@ import logging
 
 import bonobo
 import yaml
+from bonobo.constants import BEGIN
 
 import nodes
 import util
@@ -25,9 +26,8 @@ if __name__ == '__main__':
     # Configure the bonobo graph
     graph = bonobo.Graph()
     for name, props in config['graph'].items():
-        node = nodes.configure_node(name, props.pop('config', {}))
-        props['_name'] = name
-        graph.add_chain(node, **props)
+        node = nodes.configure_node(props['class'], **props.get('config', {}))
+        graph.add_chain(node, _name=name, _input=props.get('input', BEGIN), _output=props.get('output', None))
 
     # Run the graph
     bonobo.run(graph)

@@ -1,15 +1,10 @@
-from .filter import RetweetFilterNode
-from .pprint import PrettyPrinterNode
-from .tb import TextBlobNode
-from .twitter import TwitterNode
+import sys
 
-_NODES = {
-    'filter': RetweetFilterNode,
-    'pprint': PrettyPrinterNode,
-    'textblob': TextBlobNode,
-    'twitter': TwitterNode
-}
+from .pprint import PrettyPrinter
+from .tb import TextBlobAnalyzer
+from .twitter import TwitterStream
 
 
-def configure_node(name, opts):
-    return _NODES[name](**opts)
+def configure_node(cls_name, **opts):
+    cls = getattr(sys.modules[__name__], cls_name)
+    return cls(**opts)

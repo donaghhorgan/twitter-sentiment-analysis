@@ -4,6 +4,12 @@ import queue
 import tweepy
 
 
+def is_retweet(status):
+    return (hasattr(status, 'retweeted') and status.retweeted) or \
+           (hasattr(status, 'retweeted_status') and status.retweeted_status is not None) or \
+           (status.text.startswith('RT @'))
+
+
 class TweetQueue(tweepy.StreamListener):
 
     def __init__(self):
@@ -35,13 +41,15 @@ class TweetQueue(tweepy.StreamListener):
         logging.warning('Rate limit exceeded: {}', track)
 
 
-class TwitterNode():
+class TwitterStream():
 
-    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret, **filter_opts):
+    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret, filter_retweets=True,
+                 **filter_opts):
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.access_token = access_token
         self.access_token_secret = access_token_secret
+        self.filter_retweets = filter_retweets
         self.filter_opts = filter_opts
         self.filter_opts['is_async'] = True  # Force asynchronous streaming
 
@@ -56,6 +64,10 @@ class TwitterNode():
         while True:
             # Get the next status from the queue
             status = listener.queue.get()
+
+            # Filter out retweets, if configured
+            if self.filter_retweets and is_retweet(status):
+                continue
 
             # Extract the tweet text
             if hasattr(status, 'extended_tweet'):
