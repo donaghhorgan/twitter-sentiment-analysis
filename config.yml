@@ -17,6 +17,9 @@ graph:
   pprint:
     input: sentiment_analyser
     class: PrettyPrinter
+    config:
+      pos: 0.05
+      neg: -0.05
 
 logging:
   level: WARNING

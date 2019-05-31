@@ -1,19 +1,22 @@
 from termcolor import cprint
 
 
-def get_colour(sentiment):
-    if sentiment > 1 / 3:
-        return 'green'
-    elif sentiment < -1 / 3:
-        return 'red'
-    else:
-        return 'grey'
-
-
 class PrettyPrinter:
 
+    def __init__(self, pos=1 / 3, neg=-1 / 3):
+        self.pos = pos
+        self.neg = neg
+
+    def get_colour(self, sentiment):
+        if sentiment > self.pos:
+            return 'green'
+        elif sentiment < self.neg:
+            return 'red'
+        else:
+            return 'grey'
+
     def __call__(self, data):
-        colour = get_colour(data['sentiment']['score'])
+        colour = self.get_colour(data['sentiment']['score'])
 
         text = '-' * 80 + '\n\n'
         text += data['text'] + '\n\n'
