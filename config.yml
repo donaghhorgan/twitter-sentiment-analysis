@@ -12,9 +12,7 @@ graph:
 
   sentiment_analyser:
     input: tweetstream
-    class: TextBlobAnalyzer
-    config:
-      analyzer: PatternAnalyzer
+    class: VaderAnalyzer
 
   pprint:
     input: sentiment_analyser

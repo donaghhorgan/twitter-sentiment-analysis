@@ -21,11 +21,15 @@ class TextBlobAnalyzer:
 
     def __call__(self, data):
         tb = textblob.TextBlob(data['text'], **self.tb_opts)
-        data['raw_sentiment'] = tb.sentiment
 
         if hasattr(tb.sentiment, 'p_pos'):
-            data['sentiment'] = 2 * tb.sentiment.p_pos - 1
+            score = 2 * tb.sentiment.p_pos - 1
         else:
-            data['sentiment'] = tb.sentiment.polarity
+            score = tb.sentiment.polarity
+
+        data['sentiment'] = {
+            'score': score,
+            'extra': tb.sentiment
+        }
 
         return data

@@ -13,7 +13,7 @@ def get_colour(sentiment):
 class PrettyPrinter:
 
     def __call__(self, data):
-        colour = get_colour(data['sentiment'])
+        colour = get_colour(data['sentiment']['score'])
 
         text = '-' * 80 + '\n\n'
         text += data['text'] + '\n\n'
