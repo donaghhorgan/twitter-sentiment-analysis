@@ -20,7 +20,7 @@ class PrettyPrinter:
 
         text = '-' * 80 + '\n\n'
         text += data['text'] + '\n\n'
-        text += 'Sentiment: {}'.format(data['sentiment']) + '\n\n'
+        text += 'Sentiment: {}'.format(data['sentiment']['score']) + '\n\n'
         text += '-' * 80
 
         cprint(text, colour)
