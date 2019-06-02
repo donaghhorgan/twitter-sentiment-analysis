@@ -1,35 +1,48 @@
+import abc
 import nltk
 import textblob
 
 nltk.download('movie_reviews')
 nltk.download('punkt')
 
-ANALYZERS = {
-    'NaiveBayesAnalyzer': textblob.sentiments.NaiveBayesAnalyzer(),
-    'PatternAnalyzer': textblob.sentiments.PatternAnalyzer()
-}
 
+class TextBlobAnalyzer(abc.ABC):
 
-class TextBlobAnalyzer:
-
-    def __init__(self, **tb_opts):
+    def __init__(self, analyzer, **tb_opts):
         self.tb_opts = tb_opts
+        self.tb_opts['analyzer'] = analyzer
 
-        # Translate analyzer names to classes
-        analyzer = self.tb_opts.pop('analyzer', 'PatternAnalyzer')
-        self.tb_opts['analyzer'] = ANALYZERS[analyzer]
+    @staticmethod
+    @abc.abstractmethod
+    def get_sentiment_score(tb):
+        pass
 
     def __call__(self, data):
         tb = textblob.TextBlob(data['text'], **self.tb_opts)
 
-        if hasattr(tb.sentiment, 'p_pos'):
-            score = 2 * tb.sentiment.p_pos - 1
-        else:
-            score = tb.sentiment.polarity
-
         data['sentiment'] = {
-            'score': score,
+            'score': self.get_sentiment_score(tb),
             'extra': tb.sentiment
         }
 
         return data
+
+
+class TextBlobNaiveBayesAnalyzer(TextBlobAnalyzer):
+
+    def __init__(self, **tb_opts):
+        super(TextBlobNaiveBayesAnalyzer, self).__init__(textblob.sentiments.NaiveBayesAnalyzer(), **tb_opts)
+
+    @staticmethod
+    def get_sentiment_score(tb):
+        return 2 * tb.sentiment.p_pos - 1
+
+
+class TextBlobPatternAnalyzer(TextBlobAnalyzer):
+
+    def __init__(self, **tb_opts):
+        super(TextBlobPatternAnalyzer, self).__init__(textblob.sentiments.PatternAnalyzer(), **tb_opts)
+
+    @staticmethod
+    def get_sentiment_score(tb):
+        return tb.sentiment.polarity

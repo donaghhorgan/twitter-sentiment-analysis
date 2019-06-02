@@ -1,7 +1,7 @@
 import sys
 
 from .pprint import PrettyPrinter
-from .tb import TextBlobAnalyzer
+from .tb import TextBlobNaiveBayesAnalyzer, TextBlobPatternAnalyzer
 from .twitter import TwitterStream
 from .vader import VaderAnalyzer
 
