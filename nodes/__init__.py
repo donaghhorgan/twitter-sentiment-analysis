@@ -1,5 +1,6 @@
 import sys
 
+from .preprocess import TweetCleaner
 from .pprint import PrettyPrinter
 from .tb import TextBlobNaiveBayesAnalyzer, TextBlobPatternAnalyzer
 from .twitter import TwitterStream

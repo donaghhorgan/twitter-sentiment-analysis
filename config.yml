@@ -10,8 +10,16 @@ graph:
       track:
         - '#brexit'
 
-  sentiment_analyser:
+  cleanup:
     input: tweetstream
+    class: TweetCleaner
+    config:
+      remove_usernames: True
+      remove_urls: True
+      split_hashtags: True
+
+  sentiment_analyser:
+    input: cleanup
     class: VaderAnalyzer
 
   pprint:
