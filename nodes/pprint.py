@@ -1,5 +1,7 @@
 from termcolor import cprint
 
+from .twitter import get_tweet_text
+
 
 class PrettyPrinter:
 
@@ -19,7 +21,8 @@ class PrettyPrinter:
         colour = self.get_colour(data['sentiment']['score'])
 
         text = '-' * 80 + '\n\n'
-        text += data['text'] + '\n\n'
+        text += 'Original tweet: ' + get_tweet_text(data['status']) + '\n\n'
+        text += 'Scrubbed tweet: ' + data['text'] + '\n\n'
         text += 'Sentiment: {}'.format(data['sentiment']['score']) + '\n\n'
         text += '-' * 80
 

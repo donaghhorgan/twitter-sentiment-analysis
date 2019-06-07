@@ -10,6 +10,13 @@ def is_retweet(status):
            (status.text.startswith('RT @'))
 
 
+def get_tweet_text(status):
+    if hasattr(status, 'extended_tweet'):
+        return status.extended_tweet['full_text']
+    else:
+        return status.text
+
+
 class TweetQueue(tweepy.StreamListener):
 
     def __init__(self):
@@ -69,14 +76,8 @@ class TwitterStream():
             if self.filter_retweets and is_retweet(status):
                 continue
 
-            # Extract the tweet text
-            if hasattr(status, 'extended_tweet'):
-                text = status.extended_tweet['full_text']
-            else:
-                text = status.text
-
             yield {
                 'status': status,
-                'text': text,
+                'text': get_tweet_text(status),
                 'time': status.created_at
             }
