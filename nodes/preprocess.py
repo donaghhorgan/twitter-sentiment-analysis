@@ -1,6 +1,22 @@
 import re
 
 
+def remove_pattern(pattern, tweet):
+    return re.sub(pattern, '', tweet)
+
+
+def trim_retweet_handles(tweet):
+    return remove_pattern('RT @\w+:', tweet)
+
+
+def trim_usernames(tweet):
+    return remove_pattern('@\w+', tweet)
+
+
+def trim_urls(tweet):
+    return remove_pattern('https?://[\w./]*', tweet)
+
+
 def split_hashtags(tweet):
     hashtags = re.findall('\#\w+', tweet)
     for hashtag in hashtags:
@@ -18,13 +34,13 @@ class TweetCleaner:
 
     def __call__(self, data):
         if self.remove_retweet_handles:
-            data['text'] = re.sub('RT @\w+:', '', data['text'])
+            data['text'] = trim_retweet_handles(data['text'])
 
         if self.remove_usernames:
-            data['text'] = re.sub('@\w+', '', data['text'])
+            data['text'] = trim_usernames(data['text'])
 
         if self.remove_urls:
-            data['text'] = re.sub('https?://[\w./]*', '', data['text'])
+            data['text'] = trim_urls(data['text'])
 
         if self.split_hashtags:
             data['text'] = split_hashtags(data['text'])
