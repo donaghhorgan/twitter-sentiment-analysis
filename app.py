@@ -31,4 +31,7 @@ if __name__ == '__main__':
         graph.add_chain(node, _name=name, _input=props.get('input', BEGIN), _output=props.get('output', None))
 
     # Run the graph
-    bonobo.run(graph)
+    try:
+        bonobo.run(graph)
+    except KeyboardInterrupt:
+        pass  # Don't print the trace when the stream is stopped
