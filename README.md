@@ -1,5 +1,8 @@
 # A sentiment analysis pipeline for Twitter
+
 A [bonobo](https://www.bonobo-project.org/) pipeline for analysing sentiment from a live tweetstream. Supports lexical-based analysers ([pattern](https://www.clips.uantwerpen.be/pages/pattern-en) and [VADER](https://github.com/cjhutto/vaderSentiments)) and a Naive Bayes analyser ([textblob](https://textblob.readthedocs.io/en/dev/)). Prints tweet sentiment to the terminal.
+
+This project was developed for [RebelCon 2019](https://rebelcon.io/). The accompanying presentation is available [here](https://donagh.io/talks/).
 
 ## Prerequisites
 
