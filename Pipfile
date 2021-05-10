@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 bonobo = "~=0.6"
-PyYAML = "~=5.1"
+PyYAML = "~=5.4"
 termcolor = "~=1.1"
 textblob = "~=0.15"
 tweepy = "~=3.7"
